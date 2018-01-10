@@ -20,6 +20,7 @@ public class player : MonoBehaviour
     private int cupNumber;
     public GameObject[] cups;
 
+
     // Use this for initialization
     void Start()
     {
@@ -85,7 +86,7 @@ public class player : MonoBehaviour
     public void Throw()
     {
         ballThrow = true;
-        power = PowerBarSlider.value * 100;
+        power = PowerBarSlider.value * 130;
         rigid.AddForce(Vector3.forward * power);
         rigid.AddForce(Vector3.up * power);
         rigid.useGravity = true;
