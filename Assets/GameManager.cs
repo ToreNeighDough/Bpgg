@@ -9,7 +9,8 @@ public class GameManager : MonoBehaviour {
     {
         MAINMENU,
         GAME,
-        SETTINGS
+        SETTINGS,
+        PAUSE
     }
 
     public GameStates gameStates;
@@ -46,20 +47,29 @@ public class GameManager : MonoBehaviour {
             case GameStates.MAINMENU:
                 states[0].SetActive(true);
                 states[1].SetActive(false);
-                states[2].SetActive(false); 
+                states[2].SetActive(false);
+                //states[3].SetActive(false);
                 break;
 
             case GameStates.GAME:
                 states[0].SetActive(false);
                 states[1].SetActive(true);
                 states[2].SetActive(false);
+                //states[3].SetActive(false);
                 break;
 
             case GameStates.SETTINGS:
                 states[0].SetActive(false);
                 states[1].SetActive(false);
                 states[2].SetActive(true);
+                //states[3].SetActive(false);
+                break;
 
+            case GameStates.PAUSE:
+                states[0].SetActive(false);
+                states[1].SetActive(false);
+                states[2].SetActive(false);
+               // states[3].SetActive(true);
                 break;
         }
     }
