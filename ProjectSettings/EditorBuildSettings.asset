@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/beerpong.unity
+    guid: 659342033994df144932f0254fa965c6
+  - enabled: 1
+    path: Assets/gameover.unity
+    guid: 246c96e7292144d4a9e5ead3335fc5c5

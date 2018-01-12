@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
@@ -16,9 +17,16 @@ public class player : MonoBehaviour
     public GameObject StartPos;
     public Text BallIn;
     private float timer;
-    private const float MAXTIMER = 10;
+    private const float MAXTIMER = 8;
     private int cupNumber;
     public GameObject[] cups;
+    public GameObject[] cameras;
+    public Canvas image;
+    public Button[] buttons;
+    public MeshRenderer ball;
+    public AudioSource sfx;
+    private int shots;
+
 
 
     // Use this for initialization
@@ -28,9 +36,10 @@ public class player : MonoBehaviour
         number = 0;
         Direction = .75f;
         ballThrow = false;
-        BallIn.text = "";
+        //BallIn.text = "";
         timer = MAXTIMER;
         cupNumber = 6;
+        shots = 10;
     }
 
     public void Left()
@@ -78,58 +87,91 @@ public class player : MonoBehaviour
                 PowerBarSlider.value = 0;
                 timer = MAXTIMER;
                 ballThrow = false;
-
+                cameras[0].SetActive(true);
+                cameras[1].SetActive(false);
+                image.worldCamera = cameras[0].GetComponent<Camera>();
+                ball.enabled = true;
+                for (int i = 0; i < buttons.Length; i++)
+                {
+                    buttons[i].enabled = true;
+                }
+                if(shots <= 0)
+                {
+                    SceneManager.LoadScene(1);
+                }
             }
         }
     }
 
     public void Throw()
     {
+        shots--;
         ballThrow = true;
-        power = PowerBarSlider.value * 130;
+        power = PowerBarSlider.value * 135;
         rigid.AddForce(Vector3.forward * power);
         rigid.AddForce(Vector3.up * power);
         rigid.useGravity = true;
+        for (int i = 0; i < buttons.Length; i++)
+        {
+            buttons[i].enabled = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "playerTwo")
-        {
-            Debug.Log("Collision With Player Two");
-        }
+        sfx.Play();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+       
+
+        if (other.gameObject.name == "Cube")
+        {
+            cameras[0].SetActive(false);
+            cameras[1].SetActive(true);
+            image.worldCamera = cameras[1].GetComponent<Camera>();
+        }
+
         if (other.gameObject.name == "Cup (6)")
         {
             cups[0].gameObject.SetActive(false);
+            ball.enabled = false;
+            cupNumber--;
         }
 
         if (other.gameObject.name == "Cup (7)")
         {
             cups[1].gameObject.SetActive(false);
+            ball.enabled = false;
         }
 
         if (other.gameObject.name == "Cup (8)")
         {
             cups[2].gameObject.SetActive(false);
+            ball.enabled = false;
         }
 
         if (other.gameObject.name == "Cup (9)")
         {
             cups[3].gameObject.SetActive(false);
+            ball.enabled = false;
         }
 
         if (other.gameObject.name == "Cup (10)")
         {
             cups[4].gameObject.SetActive(false);
+            ball.enabled = false;
         }
 
         if (other.gameObject.name == "Cup (11)")
         {
             cups[5].gameObject.SetActive(false);
+            ball.enabled = false;
+        }
+        if(cupNumber == 0)
+        {
+            // load victory screen here!
         }
     }
 
