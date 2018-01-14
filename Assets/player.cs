@@ -144,34 +144,39 @@ public class player : MonoBehaviour
         {
             cups[1].gameObject.SetActive(false);
             ball.enabled = false;
+            cupNumber--;
         }
 
         if (other.gameObject.name == "Cup (8)")
         {
             cups[2].gameObject.SetActive(false);
             ball.enabled = false;
+            cupNumber--;
         }
 
         if (other.gameObject.name == "Cup (9)")
         {
             cups[3].gameObject.SetActive(false);
             ball.enabled = false;
+            cupNumber--;
         }
 
         if (other.gameObject.name == "Cup (10)")
         {
             cups[4].gameObject.SetActive(false);
             ball.enabled = false;
+            cupNumber--;
         }
 
         if (other.gameObject.name == "Cup (11)")
         {
             cups[5].gameObject.SetActive(false);
             ball.enabled = false;
+            cupNumber--;
         }
         if(cupNumber == 0)
         {
-            // load victory screen here!
+            SceneManager.LoadScene(2);
         }
     }
 
